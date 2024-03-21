@@ -3,10 +3,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apipratice.databinding.ActivityProductItemBinding
+import com.example.apipratice.listner.AddclickListner
 import com.example.apipratice.models.Product
 import com.squareup.picasso.Picasso
 
-class ProductAdapter(var list:Product):RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(var list:Product,var clicklistner:AddclickListner):RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding: ActivityProductItemBinding):RecyclerView.ViewHolder(binding.root){
 
@@ -31,6 +32,11 @@ class ProductAdapter(var list:Product):RecyclerView.Adapter<ProductAdapter.ViewH
         holder.binding.stock.text = "Stock-${product.stock}"
         holder.binding.productDiscription.text = "Description-${product.description}"
         Picasso.get().load("${product.thumbnail}").into(holder.binding.productImgId)
+
+        holder.binding.btnAddtoCart.setOnClickListener {
+            clicklistner.addcart(product)
+        }
+
     }
 
 }
